@@ -4,18 +4,23 @@
 
 The `MimiGaiaExtension` library provides an interface for communicating with Mimi-enabled Qualcomm devices through the Gaia protocol.
 
+> **Note:** The MimiGaiaExtension currently only supports Protobuf based Mimi Automatic Processing. Support for Mimi Basic Processing hasn't been added yet.
+
+
 ## Usage
 
-### Creating the Extension
+### Creating and registering the Extension
 
-First, create an instance of `MimiAutomaticProcessingGaiaExtension`:
+First, create and register an instance of `MimiAutomaticProcessingGaiaExtension`:
 
 ```swift
-let mimiGaiaExtension = MimiAutomaticProcessingGaiaExtension(
-    device: gaiaDevice,
-    connection: gaiaConnection,
-    notificationCenter: .default
-)
+VendorExtensionManager.shared.register { (device, connection, notificationCenter) -> GaiaDeviceVendorExtensionProtocol in
+    let mimiExtension = MimiAutomaticProcessingGaiaExtension(device: device, connection: connection, notificationCenter: notificationCenter)
+    Task {
+        await DebugService.shared.headphoneProcessing.update(mimiGaiaExtension: mimiExtension)
+    }
+    return mimiExtension.gaiaExtension
+}
 ```
 
 ### Verifying Device Compatibility
