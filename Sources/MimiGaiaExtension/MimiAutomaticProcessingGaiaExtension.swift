@@ -20,15 +20,42 @@ enum MimiGaiaCommand: UInt16 {
     case protobufResponseMsgEnd = 4
 }
 
+/// Errors that can occur when communicating with Mimi-enabled devices.
 public enum MimiGaiaError: Error {
+    /// The data provided for transmission is empty.
+    ///
+    /// This error is thrown when attempting to send an empty `Data` object to the device,
+    /// which would result in no chunks being transmitted.
     case emptyData
 }
 
+/// A protocol for interacting with Mimi-enabled devices through the Gaia protocol.
+///
+/// This protocol provides methods to verify device compatibility and exchange protobuf data
+/// with Mimi devices using chunked transmission over the Gaia vendor extension protocol.
 public protocol MimiAutomaticProcessingGaiaExtensionProtocol {
 
+    /// The underlying Gaia vendor extension used for device communication.
+    ///
+    /// This property provides access to the lower-level Gaia extension that handles
+    /// the actual protocol communication with the device.
     var gaiaExtension: GaiaDeviceVendorExtensionProtocol { get }
 
+    /// Checks whether the connected device supports Mimi functionality.
+    ///
+    /// This method queries the device to determine if it has Mimi audio processing capabilities.
+    ///
+    /// - Returns: `true` if the device supports Mimi features, `false` otherwise.
+    /// - Throws: An error if the communication with the device fails.
     func isMimiDevice() async throws -> Bool
+    
+    /// Sends protobuf data to the device and receives the response.
+    ///
+    /// This method handles the chunked transmission of data to the device and reception
+    /// of the response. Large data payloads are automatically split into chunks for transmission.
+    ///
+    /// - Parameter data: The protobuf data to send to the device.
+    /// - Returns: The protobuf response data from the device.
     func send(_ data: Data) async throws -> Data
 }
 
