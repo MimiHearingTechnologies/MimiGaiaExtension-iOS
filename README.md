@@ -16,9 +16,7 @@ First, create and register an instance of `MimiAutomaticProcessingGaiaExtension`
 ```swift
 VendorExtensionManager.shared.register { (device, connection, notificationCenter) -> GaiaDeviceVendorExtensionProtocol in
     let mimiExtension = MimiAutomaticProcessingGaiaExtension(device: device, connection: connection, notificationCenter: notificationCenter)
-    Task {
-        await DebugService.shared.headphoneProcessing.update(mimiGaiaExtension: mimiExtension)
-    }
+    self.mimiGaiaExtension = mimiExtension // Hold on to the extension
     return mimiExtension.gaiaExtension
 }
 ```
@@ -41,8 +39,8 @@ Use the extension to create a `MimiAutomaticProcessingConfiguration`:
 ```swift
 let configuration = try MimiAutomaticProcessingConfiguration {
     Processor {
-        Applicator(timeout: 2.0) { value in
-            try await mimiGaiaExtension.send(value)
+        Applicator { value in
+            try await self.mimiGaiaExtension.send(value)
         }
     }
 }
