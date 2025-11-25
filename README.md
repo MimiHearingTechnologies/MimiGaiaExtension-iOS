@@ -40,7 +40,7 @@ Use the extension to create a `MimiAutomaticProcessingConfiguration`:
 let configuration = try MimiAutomaticProcessingConfiguration {
     Processor {
         Applicator { value in
-            try await mimiGaiaExtension.send(value)
+            try await self.mimiGaiaExtension.send(value)
         }
     }
 }
