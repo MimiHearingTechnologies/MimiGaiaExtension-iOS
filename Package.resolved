@@ -1,13 +1,13 @@
 {
-  "originHash" : "545c847eb6df46400e700d503368f4fb040053cd5c26068cc612f6e384cc34ea",
+  "originHash" : "1b3d99a662e53969bf59fd990efd3e3724099c3a00f2ac68b310ad580938062a",
   "pins" : [
     {
       "identity" : "gaiasdk-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MimiHearingTechnologies/GaiaSDK-iOS.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "34c67b52b2a11b7d6a64e7211cffe4573f85c7a8"
+        "revision" : "34c67b52b2a11b7d6a64e7211cffe4573f85c7a8",
+        "version" : "0.1.0"
       }
     }
   ],

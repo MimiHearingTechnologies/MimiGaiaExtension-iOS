@@ -16,7 +16,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/MimiHearingTechnologies/GaiaSDK-iOS.git", branch: "main")
+        .package(url: "https://github.com/MimiHearingTechnologies/GaiaSDK-iOS.git", from: "0.1.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

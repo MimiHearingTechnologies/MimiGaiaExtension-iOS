@@ -64,7 +64,7 @@ public class MimiAutomaticProcessingGaiaExtension: MimiAutomaticProcessingGaiaEx
     private struct Defaults {
         static let vendorID: UInt16 = 0x4AAA
         static let featureID: UInt8 = 0x20
-        static let maxChunkSize: Int = 64 // bytes
+        static let maxChunkSize: Int = 96 // bytes
     }
 
     public var gaiaExtension: GaiaDeviceVendorExtensionProtocol {
