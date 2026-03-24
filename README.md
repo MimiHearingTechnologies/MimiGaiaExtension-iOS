@@ -4,12 +4,21 @@
 
 The `MimiGaiaExtension` library provides an interface for communicating with Mimi-enabled Qualcomm devices through the Gaia protocol.
 
-> **Note:** The MimiGaiaExtension currently only supports Protobuf based Mimi Automatic Processing. Support for Mimi Basic Processing hasn't been added yet.
+**Note:** The MimiGaiaExtension currently only supports Protobuf based Mimi Automatic Processing. Support for Mimi Basic Processing hasn't been added yet.
 
+
+## Requirements
+
+- iOS 15.0+
+- Swift 5.10+
+- Following Gaia Frameworks: `GaiaCore`, `Packets`, `GaiaBase`, `GaiaLogger`
+
+### Gaia Frameworks
+⚠️ The extension depends on the proprietary Qualcomm GAIA iOS Frameworks. These are not bundled here and you will need to provide your own copy.
 
 ## Usage
 
-### Creating and registering the Extension
+### 1. Create and register the Extension
 
 First, create and register an instance of `MimiAutomaticProcessingGaiaExtension`:
 
@@ -21,7 +30,7 @@ VendorExtensionManager.shared.register { (device, connection, notificationCenter
 }
 ```
 
-### Verifying Device Compatibility
+### 2. Verify Device Compatibility
 
 Check if the connected device supports Mimi functionality:
 
@@ -32,7 +41,9 @@ if isMimiSupported {
 }
 ```
 
-### Configuring Mimi Automatic Processing
+If the headphone supports Mimi, then you can proceed to activating the Mimi Processing Session.
+
+### 3. Activate Mimi Processing Session
 
 Use the extension to create a `MimiAutomaticProcessingConfiguration`:
 
@@ -44,16 +55,17 @@ let configuration = try MimiAutomaticProcessingConfiguration {
         }
     }
 }
-```
 
-Once configured, activate Mimi processing:
-
-```swift
+// Use the configuration to activate Mimi processing
 try await processing.activate(configuration: configuration)
 ```
 
-## Requirements
+### 4. Deactivate the Processing Session instance upon Headphone disconnection
 
-- iOS 15.0+
-- Swift 5.5+
-- Gaia SDK
+Upon headphone disconnection, you only deactivate the Mimi Processing Session; there is no specific action required for the Mimi GAIA Extension Plugin.
+
+```swift
+// Deactivate ProcessingSession
+
+try await processing.deactivate()
+```
