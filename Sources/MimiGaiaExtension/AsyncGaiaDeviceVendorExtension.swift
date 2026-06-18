@@ -1,3 +1,5 @@
+// ⚠️ GENERATED — do not edit. Synced from MimiFirmwareKit-Swift@4197f58.
+
 //
 //  AsyncGaiaDeviceVendorExtension.swift
 //  SDK Dev
