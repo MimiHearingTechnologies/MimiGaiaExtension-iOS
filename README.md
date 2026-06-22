@@ -1,26 +1,37 @@
 # MimiGaiaExtension-iOS
 
+> ⚠️ This repository is **generated**. Its source of truth lives in the private
+> `MimiFirmwareKit-Swift` repo and is synced automatically. Do not edit files here.
+
 ## Overview
 
-The `MimiGaiaExtension` library provides an interface for communicating with Mimi-enabled Qualcomm devices through the Gaia protocol.
+The `MimiGaiaExtension` library provides an interface for communicating with
+Mimi-enabled Qualcomm devices through the Gaia protocol.
 
-**Note:** The MimiGaiaExtension currently only supports Protobuf based Mimi Automatic Processing. Support for Mimi Basic Processing hasn't been added yet.
-
+**Note:** The MimiGaiaExtension currently only supports Protobuf-based Mimi
+Automatic Processing. Support for Mimi Basic Processing has not been added yet.
 
 ## Requirements
 
 - iOS 15.0+
 - Swift 5.10+
-- Following Gaia Frameworks: `GaiaCore`, `Packets`, `GaiaBase`, `GaiaLogger`
+- The following Gaia frameworks: `GaiaCore`, `Packets`, `GaiaBase`, `GaiaLogger`
 
 ### Gaia Frameworks
-⚠️ The extension depends on the proprietary Qualcomm GAIA iOS Frameworks. These are not bundled here and you will need to provide your own copy.
+
+⚠️ The extension depends on the proprietary Qualcomm GAIA iOS frameworks. These
+are not bundled here — you must provide your own copy and make the modules
+available to the target that compiles these source files.
+
+## Installation
+
+This repository is distributed as source. Add the `.swift` files under
+`Sources/MimiGaiaExtension/` to a target in your app that already links the Gaia
+frameworks.
 
 ## Usage
 
-### 1. Create and register the Extension
-
-First, create and register an instance of `MimiAutomaticProcessingGaiaExtension`:
+### 1. Create and register the extension
 
 ```swift
 VendorExtensionManager.shared.register { (device, connection, notificationCenter) -> GaiaDeviceVendorExtensionProtocol in
@@ -30,22 +41,7 @@ VendorExtensionManager.shared.register { (device, connection, notificationCenter
 }
 ```
 
-### 2. Verify Device Compatibility
-
-Check if the connected device supports Mimi functionality:
-
-```swift
-let isMimiSupported = try await mimiGaiaExtension.isMimiDevice()
-if isMimiSupported {
-    print("Device supports Mimi Processing")
-}
-```
-
-If the headphone supports Mimi, then you can proceed to activating the Mimi Processing Session.
-
-### 3. Activate Mimi Processing Session
-
-Use the extension to create a `MimiAutomaticProcessingConfiguration`:
+### 2. Activate a Mimi Processing session
 
 ```swift
 let configuration = try MimiAutomaticProcessingConfiguration {
@@ -56,16 +52,14 @@ let configuration = try MimiAutomaticProcessingConfiguration {
     }
 }
 
-// Use the configuration to activate Mimi processing
 try await processing.activate(configuration: configuration)
 ```
 
-### 4. Deactivate the Processing Session instance upon Headphone disconnection
+### 3. Deactivate on disconnection
 
-Upon headphone disconnection, you only deactivate the Mimi Processing Session; there is no specific action required for the Mimi GAIA Extension Plugin.
+Upon headphone disconnection, deactivate the Mimi Processing session; no specific
+action is required for the Mimi GAIA extension itself.
 
 ```swift
-// Deactivate ProcessingSession
-
 try await processing.deactivate()
 ```

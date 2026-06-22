@@ -1,3 +1,5 @@
+// ⚠️ GENERATED — do not edit. Synced from MimiFirmwareKit-Swift@1dade11.
+
 //
 //  Data+Helpers.swift
 //  MimiGaiaExtension-iOS
