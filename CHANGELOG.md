@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - `MimiAutomaticProcessingGaiaExtension` is now an `actor` instead of a `class`; the `gaiaExtension` property and its backing storage are `nonisolated`.
-- Marked the package as generated and synced from the private `MimiFirmwareKit-Swift` repository; source files carry a "do not edit" header and the README documents the sync workflow.
 
 ### Removed
 - `MimiAutomaticProcessingGaiaExtensionProtocol`.
